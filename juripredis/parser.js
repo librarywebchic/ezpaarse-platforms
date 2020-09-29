@@ -12,7 +12,7 @@ const Parser = require('../.lib/parser.js');
  */
 module.exports = new Parser(function analyseEC(parsedUrl, ec) {
   let result = {};
-  let hash   = parsedUrl.hash;
+  let path   = parsedUrl.pathname;
   // uncomment this line if you need parameters
   // let param = parsedUrl.query || {};
 
@@ -21,10 +21,8 @@ module.exports = new Parser(function analyseEC(parsedUrl, ec) {
 
   let match;
 
-  if ((match = /^#\/app\/arret\/(([A-Z]{4}TEXT)\d+-?\d+).*$/i.exec(hash)) !== null) {
-    // https://app.juripredis.com/#/app/arret/JURITEXT000039307272
-    // https://app.juripredis.com/#/app/arret/CEDHTEXT001-99012
-    // https://app.juripredis.com/#/app/arret/CETATEXT000007643577/eyJmcmVlX3RleHQiOiJjb2RlIiwianVya
+  if ((match = /^\/arrets\/((\D*).*)$/i.exec(path)) !== null) {
+      //
     result.rtype    = 'JURISPRUDENCE';
     result.mime     = 'HTML';
     result.title_id = match[2];
